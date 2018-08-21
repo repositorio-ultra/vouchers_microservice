@@ -1,0 +1,63 @@
+-- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+--
+-- Host: localhost    Database: microservice
+-- ------------------------------------------------------
+-- Server version	5.7.23-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `vouchers`
+--
+
+DROP TABLE IF EXISTS `vouchers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vouchers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(8) NOT NULL,
+  `recipient_id` int(11) DEFAULT NULL,
+  `offer_id` int(11) DEFAULT NULL,
+  `expiration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `used` int(1) DEFAULT '0',
+  `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`),
+  KEY `fk_id_rec` (`recipient_id`),
+  KEY `fk_id_offer` (`offer_id`),
+  CONSTRAINT `fk_id_offer` FOREIGN KEY (`offer_id`) REFERENCES `special_offers` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_id_rec` FOREIGN KEY (`recipient_id`) REFERENCES `recipients` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vouchers`
+--
+
+LOCK TABLES `vouchers` WRITE;
+/*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
+INSERT INTO `vouchers` VALUES (1,'Xr4RT@iU',1,1,'2018-08-21 02:10:01',1,'2018-08-20 20:51:46','2018-08-21 02:10:01','2018-08-20 20:51:46'),(2,'K,5,O,d,',1,NULL,'2018-08-20 21:15:15',0,'2018-08-20 00:00:00','2018-08-20 21:15:15','2018-08-20 21:15:15'),(3,'lp2BDXj5',1,NULL,'2018-08-20 21:17:09',0,'2018-08-20 00:00:00','2018-08-20 21:17:09','2018-08-20 21:17:09'),(4,'WfkGyH49',1,1,'2018-08-21 01:23:03',0,'2018-08-21 01:23:03','2018-08-21 01:23:03','2018-08-21 01:23:03');
+/*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-08-20 23:47:50
